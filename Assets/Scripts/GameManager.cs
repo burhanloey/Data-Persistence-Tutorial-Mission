@@ -11,10 +11,10 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance;
 
-    public string currentName;
-    public SaveData saveData;
+    public string CurrentName;
+    public SaveData Data;
 
-    private string saveFilePath;
+    private string m_SaveFilePath;
 
     private void Awake()
     {
@@ -27,35 +27,35 @@ public class GameManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        saveFilePath = Application.persistentDataPath + "/save.json";
+        m_SaveFilePath = Application.persistentDataPath + "/save.json";
 
         LoadHighScore();
     }
 
     public void SaveHighScore(int score)
     {
-        SaveData saveData = new SaveData();
-        saveData.hiScoreName = currentName;
-        saveData.highestScore = score;
+        SaveData data = new SaveData();
+        data.HiScoreName = CurrentName;
+        data.HighestScore = score;
 
-        string json = JsonUtility.ToJson(saveData);
+        string json = JsonUtility.ToJson(data);
 
-        File.WriteAllText(saveFilePath, json);
+        File.WriteAllText(m_SaveFilePath, json);
     }
 
     public void LoadHighScore()
     {
-        if (File.Exists(saveFilePath))
+        if (File.Exists(m_SaveFilePath))
         {
-            string json = File.ReadAllText(saveFilePath);
-            saveData = JsonUtility.FromJson<SaveData>(json);
+            string json = File.ReadAllText(m_SaveFilePath);
+            Data = JsonUtility.FromJson<SaveData>(json);
         }
     }
 
     [System.Serializable]
     public class SaveData
     {
-        public string hiScoreName;
-        public int highestScore;
+        public string HiScoreName;
+        public int HighestScore;
     }
 }
