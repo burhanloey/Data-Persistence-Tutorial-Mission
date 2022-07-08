@@ -32,10 +32,10 @@ public class GameManager : MonoBehaviour
         LoadHighScore();
     }
 
-    public void SaveHighScore(string name, int score)
+    public void SaveHighScore(int score)
     {
         SaveData saveData = new SaveData();
-        saveData.hiScoreName = name;
+        saveData.hiScoreName = currentName;
         saveData.highestScore = score;
 
         string json = JsonUtility.ToJson(saveData);

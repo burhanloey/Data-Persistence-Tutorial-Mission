@@ -6,12 +6,14 @@ using TMPro;
 
 public class MenuUIHandler : MonoBehaviour
 {
-    public TextMeshProUGUI bestScoreText;
-    public TextMeshProUGUI nameTextField;
+    public TMP_Text bestScoreText;
+    public TMP_InputField nameInputField;
 
     // Start is called before the first frame update
     void Start()
     {
+        nameInputField.text = GameManager.Instance.currentName;
+
         if (GameManager.Instance.saveData.highestScore > 0)
         {
             string hiScoreName = GameManager.Instance.saveData.hiScoreName;
@@ -24,7 +26,7 @@ public class MenuUIHandler : MonoBehaviour
 
     public void Play()
     {
-        GameManager.Instance.currentName = nameTextField.text;
+        GameManager.Instance.currentName = nameInputField.text;
         SceneManager.LoadScene(GameManager.BREAKOUT_GAME_SCENE);
     }
 

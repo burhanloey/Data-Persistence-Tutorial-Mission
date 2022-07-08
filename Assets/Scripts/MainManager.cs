@@ -14,7 +14,6 @@ public class MainManager : MonoBehaviour
     public Text ScoreText;
     public GameObject GameOverText;
 
-    private string currentName;
     private int highestScore;
     private bool m_Started = false;
     private int m_Points;
@@ -25,18 +24,13 @@ public class MainManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (GameManager.Instance != null)
+        if (GameManager.Instance != null && GameManager.Instance.saveData.highestScore > 0)
         {
-            currentName = GameManager.Instance.currentName;
+            string hiScoreName = GameManager.Instance.saveData.hiScoreName;
+            highestScore = GameManager.Instance.saveData.highestScore;
 
-            if (GameManager.Instance.saveData.highestScore > 0)
-            {
-                string hiScoreName = GameManager.Instance.saveData.hiScoreName;
-                highestScore = GameManager.Instance.saveData.highestScore;
-
-                BestScoreText.text = $"Best Score : {hiScoreName} : {highestScore}";
-                BestScoreText.gameObject.SetActive(true);
-            }
+            BestScoreText.text = $"Best Score : {hiScoreName} : {highestScore}";
+            BestScoreText.gameObject.SetActive(true);
         }
 
         const float step = 0.6f;
@@ -74,7 +68,7 @@ public class MainManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                SceneManager.LoadScene(GameManager.MENU_SCENE);
             }
         }
     }
@@ -86,7 +80,9 @@ public class MainManager : MonoBehaviour
 
         if (m_Points > highestScore)
         {
+            string currentName = GameManager.Instance.currentName;
             BestScoreText.text = $"Best Score: {currentName} : {m_Points}";
+            BestScoreText.gameObject.SetActive(true);
         }
     }
 
@@ -97,7 +93,7 @@ public class MainManager : MonoBehaviour
 
         if (m_Points > highestScore)
         {
-            GameManager.Instance.SaveHighScore(currentName, m_Points);
+            GameManager.Instance.SaveHighScore(m_Points);
             GameManager.Instance.LoadHighScore();
         }
     }
