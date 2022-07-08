@@ -33,6 +33,7 @@ public class MainManager : MonoBehaviour
             {
                 string hiScoreName = GameManager.Instance.saveData.hiScoreName;
                 highestScore = GameManager.Instance.saveData.highestScore;
+
                 BestScoreText.text = $"Best Score : {hiScoreName} : {highestScore}";
                 BestScoreText.gameObject.SetActive(true);
             }
