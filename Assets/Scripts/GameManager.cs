@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,7 +11,10 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance;
 
-    public GameData data;
+    public string currentName;
+    public SaveData saveData;
+
+    private string saveFilePath;
 
     private void Awake()
     {
@@ -22,23 +26,36 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        saveFilePath = Application.persistentDataPath + "/save.json";
+
+        LoadHighScore();
     }
 
-    public void Play()
+    public void SaveHighScore(string name, int score)
     {
-        SceneManager.LoadScene(BREAKOUT_GAME_SCENE);
+        SaveData saveData = new SaveData();
+        saveData.hiScoreName = name;
+        saveData.highestScore = score;
+
+        string json = JsonUtility.ToJson(saveData);
+
+        File.WriteAllText(saveFilePath, json);
     }
 
-    public void Quit()
+    public void LoadHighScore()
     {
-        Application.Quit();
+        if (File.Exists(saveFilePath))
+        {
+            string json = File.ReadAllText(saveFilePath);
+            saveData = JsonUtility.FromJson<SaveData>(json);
+        }
     }
 
-    [SerializeField]
-    public class GameData
+    [System.Serializable]
+    public class SaveData
     {
-        public string currentName;
-        public string highestScoreName;
+        public string hiScoreName;
         public int highestScore;
     }
 }
