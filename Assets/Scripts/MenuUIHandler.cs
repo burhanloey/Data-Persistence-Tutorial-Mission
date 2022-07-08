@@ -27,7 +27,7 @@ public class MenuUIHandler : MonoBehaviour
     public void Play()
     {
         GameManager.Instance.CurrentName = NameInputField.text;
-        SceneManager.LoadScene(GameManager.BREAKOUT_GAME_SCENE);
+        SceneManager.LoadScene(GameManager.BreakoutGameSceneIndex);
     }
 
     public void Quit()

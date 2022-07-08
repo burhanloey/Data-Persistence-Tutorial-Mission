@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public const int MENU_SCENE = 0;
-    public const int BREAKOUT_GAME_SCENE = 1;
+    public const int MenuSceneIndex = 0;
+    public const int BreakoutGameSceneIndex = 1;
 
     public static GameManager Instance;
 
