@@ -30,7 +30,7 @@ public class MenuUIHandler : MonoBehaviour
             string hiScoreName = GameManager.Instance.Data.HiScoreName;
             int highestScore = GameManager.Instance.Data.HighestScore;
 
-            BestScoreText.text = $"Best Score: {hiScoreName} - {highestScore}";
+            BestScoreText.text = $"Best Score - {hiScoreName} : {highestScore}";
             BestScoreText.gameObject.SetActive(true);
         }
     }

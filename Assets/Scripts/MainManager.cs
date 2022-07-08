@@ -29,7 +29,7 @@ public class MainManager : MonoBehaviour
             string hiScoreName = GameManager.Instance.Data.HiScoreName;
             m_HighestScore = GameManager.Instance.Data.HighestScore;
 
-            BestScoreText.text = $"Best Score : {hiScoreName} - {m_HighestScore}";
+            BestScoreText.text = $"Best Score - {hiScoreName} : {m_HighestScore}";
             BestScoreText.gameObject.SetActive(true);
         }
 
@@ -81,7 +81,7 @@ public class MainManager : MonoBehaviour
         if (m_Points > m_HighestScore)
         {
             string currentName = GameManager.Instance.CurrentName;
-            BestScoreText.text = $"Best Score: {currentName} - {m_Points}";
+            BestScoreText.text = $"Best Score - {currentName} : {m_Points}";
             BestScoreText.gameObject.SetActive(true);
         }
     }
